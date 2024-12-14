@@ -1,9 +1,10 @@
-[![CircleCI]() -> https://shields.io/badges/circle-ci  
-![Crates.io Version]() -> https://shields.io/badges/crates-io-version
+[![CircleCI]() -> https://app.circleci.com/organization/circleci/  
+`![Crates.io Version](https://img.shields.io/crates/v/<<CRATE NAME>>?style=flat-square&color=blue)`
+
 
 # RUST-PROJECT-TEMPLATE
 
-<<DESCRIPTION>>
+DESCRIPTION
 
 <img src="LOGO.png" alt="LOGO" width="150" height="150">
 
