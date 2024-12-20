@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["arxiv-tools"]
+members = []
 
 [workspace.package]
 version = "0.1.0"
