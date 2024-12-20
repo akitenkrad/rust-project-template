@@ -1,0 +1,16 @@
+services:
+  instance:
+    container_name: 'compute-instance.TEMPLATE'
+    image: akitenkrad/compute-instance.cpu:latest
+    user: root
+    tty: true
+    volumes:
+      - ./:/workplace
+      - data:/data
+      - /Users/akitenkrad/.ssh:/root/.ssh
+    working_dir: /workplace
+    platform: linux/amd64
+volumes:
+  data:
+    name: data
+    external: true
