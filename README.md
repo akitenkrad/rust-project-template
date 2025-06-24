@@ -1,7 +1,3 @@
-[![CircleCI]() -> https://app.circleci.com/organization/circleci/  
-`![Crates.io Version](https://img.shields.io/crates/v/<<CRATE NAME>>?style=flat-square&color=blue)`
-
-
 # RUST-PROJECT-TEMPLATE
 
 DESCRIPTION
@@ -13,5 +9,3 @@ DESCRIPTION
 ### Installation
 
 ### Usage
-
-
