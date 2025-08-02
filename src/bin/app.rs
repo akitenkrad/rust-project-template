@@ -6,7 +6,7 @@ fn main() {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test_log::test]
     fn test_hello_world() {
         main();
         tracing::info!("This is a test for the hello world function.");
