@@ -17,16 +17,12 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt update -y && \
-    apt install -y curl build-essential libssl-dev poppler-utils libopencv-dev clang libclang-dev && \
+    apt install -y build-essential pkg-config poppler-utils libopencv-dev clang libclang-dev libssl-dev curl && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 RUN cargo install cargo-make && \
     cargo install cargo-nextest
-
-RUN apt update -y && apt upgrade -y && \
-    apt install -y build-essential pkg-config poppler-utils libopencv-dev clang libclang-dev libssl-dev curl && \
-    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/app ./target/release/app
