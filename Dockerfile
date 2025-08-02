@@ -1,21 +1,32 @@
-FROM ubuntu:24.04
+# ============ BUILDER IMAGE ============
+FROM rust:slim-bookworm AS builder
+WORKDIR /app
 
-# Install Rust and Cargo
+# Install system dependencies
 RUN apt update -y && \
     apt install -y curl build-essential libssl-dev poppler-utils libopencv-dev clang libclang-dev && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Rust using rustup
-ENV RUST_HOME /usr/local/lib/rust
-ENV RUSTUP_HOME ${RUST_HOME}/rustup
-ENV CARGO_HOME ${RUST_HOME}/cargo
-RUN mkdir /usr/local/lib/rust && chmod 0755 $RUST_HOME
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh \
-    && chmod +x ${RUST_HOME}/rustup.sh \
-    && ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path
-ENV PATH $PATH:$CARGO_HOME/bin
+COPY . .
+RUN cargo build --release
+
+# ============ RUNNER IMAGE ============
+FROM rust:slim-bookworm
+WORKDIR /app
+
+# Install system dependencies
+RUN apt update -y && \
+    apt install -y curl build-essential libssl-dev poppler-utils libopencv-dev clang libclang-dev && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 RUN cargo install cargo-make && \
     cargo install cargo-nextest
+
+RUN apt update -y && apt upgrade -y && \
+    apt install -y build-essential pkg-config poppler-utils libopencv-dev clang libclang-dev libssl-dev curl && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /app/target/release/app ./target/release/app
